@@ -10,7 +10,7 @@ const MainLayout = () => {
       <Sidebar isOpen={sidebarOpen} setIsOpen={setSidebarOpen} />
       
       <div className="lg:ml-64 min-h-screen">
-        <main className="p-4 lg:p-6 pt-16 lg:pt-6">
+        <main className="p-4 pt-16 lg:p-6 lg:pt-6 safe-area-inset">
           <Outlet />
         </main>
       </div>

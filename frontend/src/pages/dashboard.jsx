@@ -245,51 +245,51 @@ const Dashboard = () => {
   const dashboardContent = getRoleSpecificContent();
 
   return (
-    <div className="p-6 space-y-6">
+    <div className="p-4 sm:p-6 space-y-4 sm:space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-slate-800">{dashboardContent.title}</h1>
-        <p className="text-slate-500">{dashboardContent.subtitle}</p>
+        <h1 className="text-xl sm:text-2xl font-bold text-slate-800">{dashboardContent.title}</h1>
+        <p className="text-slate-500 text-sm sm:text-base">{dashboardContent.subtitle}</p>
       </div>
 
       {/* Athlete Dashboard - Teams, Events, Performance */}
       {user?.role === 'athlete' ? (
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <Card className="flex items-center gap-4">
-            <div className="p-3 bg-emerald-100 rounded-lg">
-              <Trophy className="text-emerald-600" size={24} />
+        <div className="grid grid-cols-1 gap-3 sm:gap-4">
+          <Card className="flex items-center gap-3 sm:gap-4 touch-manipulation">
+            <div className="p-2.5 sm:p-3 bg-emerald-100 rounded-lg">
+              <Trophy className="text-emerald-600" size={20} className="sm:size-6" />
             </div>
             <div>
               <Link to="/teams" className="text-left">
-                <p className="text-2xl font-bold text-slate-800 hover:text-blue-600">View</p>
-                <p className="text-sm text-slate-500">My Teams</p>
+                <p className="text-xl sm:text-2xl font-bold text-slate-800 hover:text-blue-600">View</p>
+                <p className="text-xs sm:text-sm text-slate-500">My Teams</p>
               </Link>
             </div>
           </Card>
 
-          <Card className="flex items-center gap-4">
-            <div className="p-3 bg-amber-100 rounded-lg">
-              <Calendar className="text-amber-600" size={24} />
+          <Card className="flex items-center gap-3 sm:gap-4 touch-manipulation">
+            <div className="p-2.5 sm:p-3 bg-amber-100 rounded-lg">
+              <Calendar className="text-amber-600" size={20} className="sm:size-6" />
             </div>
             <div>
-              <p className="text-2xl font-bold text-slate-800">{stats.events}</p>
-              <p className="text-sm text-slate-500">Events</p>
+              <p className="text-xl sm:text-2xl font-bold text-slate-800">{stats.events}</p>
+              <p className="text-xs sm:text-sm text-slate-500">Events</p>
             </div>
           </Card>
 
-          <Card className="flex items-center gap-4">
-            <div className="p-3 bg-purple-100 rounded-lg">
-              <Activity className="text-purple-600" size={24} />
+          <Card className="flex items-center gap-3 sm:gap-4 touch-manipulation">
+            <div className="p-2.5 sm:p-3 bg-purple-100 rounded-lg">
+              <Activity className="text-purple-600" size={20} className="sm:size-6" />
             </div>
             <div>
               {athleteProfile ? (
                 <button onClick={() => setShowPerformance(!showPerformance)} className="text-left">
-                  <p className="text-2xl font-bold text-slate-800">{performances.length}</p>
-                  <p className="text-sm text-slate-500">Performance Records</p>
+                  <p className="text-xl sm:text-2xl font-bold text-slate-800">{performances.length}</p>
+                  <p className="text-xs sm:text-sm text-slate-500">Performance Records</p>
                 </button>
               ) : (
                 <>
-                  <p className="text-2xl font-bold text-slate-800">-</p>
-                  <p className="text-sm text-slate-500">Performance</p>
+                  <p className="text-xl sm:text-2xl font-bold text-slate-800">-</p>
+                  <p className="text-xs sm:text-sm text-slate-500">Performance</p>
                 </>
               )}
             </div>
@@ -297,65 +297,65 @@ const Dashboard = () => {
         </div>
       ) : (
         /* Admin/Coach Dashboard - Athletes, Teams, Events, Performance */
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-          <Card className="flex items-center gap-4">
-            <div className="p-3 bg-blue-100 rounded-lg">
-              <Users className="text-blue-600" size={24} />
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+          <Card className="flex items-center gap-3 sm:gap-4 touch-manipulation">
+            <div className="p-2.5 sm:p-3 bg-blue-100 rounded-lg">
+              <Users className="text-blue-600" size={20} className="sm:size-6" />
             </div>
             <div>
-              <p className="text-2xl font-bold text-slate-800">{stats.athletes}</p>
-              <p className="text-sm text-slate-500">Athletes</p>
+              <p className="text-xl sm:text-2xl font-bold text-slate-800">{stats.athletes}</p>
+              <p className="text-xs sm:text-sm text-slate-500">Athletes</p>
             </div>
           </Card>
 
-          <Card className="flex items-center gap-4">
-            <div className="p-3 bg-emerald-100 rounded-lg">
-              <Trophy className="text-emerald-600" size={24} />
+          <Card className="flex items-center gap-3 sm:gap-4 touch-manipulation">
+            <div className="p-2.5 sm:p-3 bg-emerald-100 rounded-lg">
+              <Trophy className="text-emerald-600" size={20} className="sm:size-6" />
             </div>
             <div>
-              <p className="text-2xl font-bold text-slate-800">{stats.teams}</p>
-              <p className="text-sm text-slate-500">Teams</p>
+              <p className="text-xl sm:text-2xl font-bold text-slate-800">{stats.teams}</p>
+              <p className="text-xs sm:text-sm text-slate-500">Teams</p>
             </div>
           </Card>
 
-          <Card className="flex items-center gap-4">
-            <div className="p-3 bg-amber-100 rounded-lg">
-              <Calendar className="text-amber-600" size={24} />
+          <Card className="flex items-center gap-3 sm:gap-4 touch-manipulation">
+            <div className="p-2.5 sm:p-3 bg-amber-100 rounded-lg">
+              <Calendar className="text-amber-600" size={20} className="sm:size-6" />
             </div>
             <div>
-              <p className="text-2xl font-bold text-slate-800">{stats.events}</p>
-              <p className="text-sm text-slate-500">Events</p>
+              <p className="text-xl sm:text-2xl font-bold text-slate-800">{stats.events}</p>
+              <p className="text-xs sm:text-sm text-slate-500">Events</p>
             </div>
           </Card>
 
-          <Card className="flex items-center gap-4">
-            <div className="p-3 bg-purple-100 rounded-lg">
-              <Activity className="text-purple-600" size={24} />
+          <Card className="flex items-center gap-3 sm:gap-4 touch-manipulation">
+            <div className="p-2.5 sm:p-3 bg-purple-100 rounded-lg">
+              <Activity className="text-purple-600" size={20} className="sm:size-6" />
             </div>
             <div>
               <Link to="/performance" className="text-left">
-                <p className="text-2xl font-bold text-slate-800 hover:text-blue-600">View</p>
-                <p className="text-sm text-slate-500">Performance</p>
+                <p className="text-xl sm:text-2xl font-bold text-slate-800 hover:text-blue-600">View</p>
+                <p className="text-xs sm:text-sm text-slate-500">Performance</p>
               </Link>
             </div>
           </Card>
         </div>
       )}
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 gap-4 sm:gap-6 lg:grid-cols-2">
         <Card title="Upcoming Events" subtitle="Your scheduled events">
           {loading ? (
-            <div className="text-center py-8 text-slate-500">Loading...</div>
+            <div className="text-center py-6 sm:py-8 text-slate-500 text-sm sm:text-base">Loading...</div>
           ) : stats.upcoming.length > 0 ? (
-            <div className="space-y-3">
+            <div className="space-y-2 sm:space-y-3">
               {stats.upcoming.map(event => (
-                <div key={event._id} className="flex items-center justify-between p-3 bg-slate-50 rounded-lg">
+                <div key={event._id} className="flex items-center justify-between p-2.5 sm:p-3 bg-slate-50 rounded-lg touch-manipulation">
                   <div>
-                    <p className="font-medium text-slate-800">{event.title}</p>
-                    <p className="text-sm text-slate-500">{event.type}</p>
+                    <p className="font-medium text-slate-800 text-sm sm:text-base">{event.title}</p>
+                    <p className="text-xs sm:text-sm text-slate-500">{event.type}</p>
                   </div>
                   <div className="text-right">
-                    <p className="text-sm font-medium text-slate-700">
+                    <p className="text-xs sm:text-sm font-medium text-slate-700">
                       {new Date(event.startTime).toLocaleDateString()}
                     </p>
                     <p className="text-xs text-slate-500">
@@ -366,44 +366,44 @@ const Dashboard = () => {
               ))}
             </div>
           ) : (
-            <div className="text-center py-8 text-slate-500">
+            <div className="text-center py-6 sm:py-8 text-slate-500 text-sm sm:text-base">
               No upcoming events
             </div>
           )}
         </Card>
 
         <Card title="Quick Actions" subtitle="Common tasks">
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 gap-2 sm:gap-3">
             {user?.role !== 'athlete' && (
               <>
-                <button className="p-4 bg-slate-50 rounded-lg text-left hover:bg-slate-100 transition-colors">
-                  <Users className="text-blue-600 mb-2" size={20} />
-                  <p className="font-medium text-slate-800">Manage Athletes</p>
-                  <p className="text-xs text-slate-500">View and edit profiles</p>
+                <button className="p-3 sm:p-4 bg-slate-50 rounded-lg text-left hover:bg-slate-100 transition-colors touch-manipulation">
+                  <Users className="text-blue-600 mb-1.5 sm:mb-2" size={18} className="sm:size-5" />
+                  <p className="font-medium text-slate-800 text-xs sm:text-sm">Manage Athletes</p>
+                  <p className="text-xs text-slate-500 hidden sm:block">View and edit profiles</p>
                 </button>
-                <button className="p-4 bg-slate-50 rounded-lg text-left hover:bg-slate-100 transition-colors">
-                  <Trophy className="text-emerald-600 mb-2" size={20} />
-                  <p className="font-medium text-slate-800">Manage Teams</p>
-                  <p className="text-xs text-slate-500">Create and update teams</p>
+                <button className="p-3 sm:p-4 bg-slate-50 rounded-lg text-left hover:bg-slate-100 transition-colors touch-manipulation">
+                  <Trophy className="text-emerald-600 mb-1.5 sm:mb-2" size={18} className="sm:size-5" />
+                  <p className="font-medium text-slate-800 text-xs sm:text-sm">Manage Teams</p>
+                  <p className="text-xs text-slate-500 hidden sm:block">Create and update teams</p>
                 </button>
               </>
             )}
-            <button className="p-4 bg-slate-50 rounded-lg text-left hover:bg-slate-100 transition-colors">
-              <Calendar className="text-amber-600 mb-2" size={20} />
-              <p className="font-medium text-slate-800">View Schedule</p>
-              <p className="text-xs text-slate-500">Upcoming events</p>
+            <button className="p-3 sm:p-4 bg-slate-50 rounded-lg text-left hover:bg-slate-100 transition-colors touch-manipulation">
+              <Calendar className="text-amber-600 mb-1.5 sm:mb-2" size={18} className="sm:size-5" />
+              <p className="font-medium text-slate-800 text-xs sm:text-sm">View Schedule</p>
+              <p className="text-xs text-slate-500 hidden sm:block">Upcoming events</p>
             </button>
             {user?.role !== 'athlete' ? (
-              <Link to="/performance" className="p-4 bg-slate-50 rounded-lg text-left hover:bg-slate-100 transition-colors block">
-                <Activity className="text-purple-600 mb-2" size={20} />
-                <p className="font-medium text-slate-800">Performance</p>
-                <p className="text-xs text-slate-500">Track athlete progress</p>
+              <Link to="/performance" className="p-3 sm:p-4 bg-slate-50 rounded-lg text-left hover:bg-slate-100 transition-colors block touch-manipulation">
+                <Activity className="text-purple-600 mb-1.5 sm:mb-2" size={18} className="sm:size-5" />
+                <p className="font-medium text-slate-800 text-xs sm:text-sm">Performance</p>
+                <p className="text-xs text-slate-500 hidden sm:block">Track athlete progress</p>
               </Link>
             ) : (
-              <button className="p-4 bg-slate-50 rounded-lg text-left hover:bg-slate-100 transition-colors" onClick={() => setShowPerformance(true)}>
-                <Activity className="text-purple-600 mb-2" size={20} />
-                <p className="font-medium text-slate-800">Performance</p>
-                <p className="text-xs text-slate-500">Track progress</p>
+              <button className="p-3 sm:p-4 bg-slate-50 rounded-lg text-left hover:bg-slate-100 transition-colors touch-manipulation" onClick={() => setShowPerformance(true)}>
+                <Activity className="text-purple-600 mb-1.5 sm:mb-2" size={18} className="sm:size-5" />
+                <p className="font-medium text-slate-800 text-xs sm:text-sm">Performance</p>
+                <p className="text-xs text-slate-500 hidden sm:block">Track progress</p>
               </button>
             )}
           </div>
@@ -411,18 +411,18 @@ const Dashboard = () => {
       </div>
 
       {user?.role === 'athlete' && showPerformance && athleteProfile && (
-        <Card className="mt-6">
-          <div className="flex items-center justify-between mb-4">
+        <Card className="mt-4 sm:mt-6">
+          <div className="flex items-center justify-between mb-3 sm:mb-4">
             <div className="flex items-center gap-2">
-              <TrendingUp className="text-purple-600" size={24} />
+              <TrendingUp className="text-purple-600" size={20} className="sm:size-6" />
               <div>
-                <h3 className="text-lg font-semibold text-slate-800">{currentSport.label}</h3>
-                <p className="text-sm text-slate-500 capitalize">{athleteProfile.sport?.primary}</p>
+                <h3 className="text-base sm:text-lg font-semibold text-slate-800">{currentSport.label}</h3>
+                <p className="text-xs sm:text-sm text-slate-500 capitalize">{athleteProfile.sport?.primary}</p>
               </div>
             </div>
             <button 
               onClick={() => setShowPerformance(false)} 
-              className="text-slate-400 hover:text-slate-600"
+              className="text-slate-400 hover:text-slate-600 touch-manipulation"
             >
               ✕
             </button>
@@ -430,25 +430,25 @@ const Dashboard = () => {
 
           {performances.length > 0 ? (
             <>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+              <div className="grid grid-cols-2 xs:grid-cols-4 sm:grid-cols-4 gap-2 sm:gap-4 mb-4 sm:mb-6">
                 {currentSport.statsCards.map((card) => (
-                  <div key={card.key} className={`p-4 rounded-lg ${colorMap[card.color].bg}`}>
-                    <p className="text-sm text-slate-600">{card.label}</p>
-                    <p className={`text-2xl font-bold ${colorMap[card.color].text}`}>
+                  <div key={card.key} className={`p-2.5 sm:p-4 rounded-lg ${colorMap[card.color].bg}`}>
+                    <p className="text-xs sm:text-sm text-slate-600">{card.label}</p>
+                    <p className={`text-lg sm:text-2xl font-bold ${colorMap[card.color].text}`}>
                       {totals[card.key] || 0}
                     </p>
                   </div>
                 ))}
               </div>
 
-              <div className="overflow-x-auto">
-                <table className="w-full">
+              <div className="overflow-x-auto -mx-4 sm:mx-0">
+                <table className="w-full min-w-[600px]">
                   <thead>
                     <tr className="border-b border-slate-200">
-                      <th className="text-left py-3 px-4 text-sm font-medium text-slate-500">Date</th>
-                      <th className="text-left py-3 px-4 text-sm font-medium text-slate-500">Event</th>
+                      <th className="text-left py-2 px-2 sm:py-3 sm:px-4 text-xs sm:text-sm font-medium text-slate-500">Date</th>
+                      <th className="text-left py-2 px-2 sm:py-3 sm:px-4 text-xs sm:text-sm font-medium text-slate-500">Event</th>
                       {currentSport.metrics.map(m => (
-                        <th key={m} className="text-left py-3 px-4 text-sm font-medium text-slate-500 capitalize">
+                        <th key={m} className="text-left py-2 px-2 sm:py-3 sm:px-4 text-xs sm:text-sm font-medium text-slate-500 capitalize whitespace-nowrap">
                           {m.replace(/([A-Z])/g, ' $1').trim()}
                         </th>
                       ))}
@@ -457,14 +457,14 @@ const Dashboard = () => {
                   <tbody>
                     {performances.slice(0, 10).map((perf) => (
                       <tr key={perf._id} className="border-b border-slate-100 hover:bg-slate-50">
-                        <td className="py-3 px-4 text-sm text-slate-800">
+                        <td className="py-2 px-2 sm:py-3 sm:px-4 text-xs sm:text-sm text-slate-800">
                           {perf.createdAt ? new Date(perf.createdAt).toLocaleDateString() : '-'}
                         </td>
-                        <td className="py-3 px-4 text-sm text-slate-800">
+                        <td className="py-2 px-2 sm:py-3 sm:px-4 text-xs sm:text-sm text-slate-800">
                           {perf.eventId?.title || '-'}
                         </td>
                         {currentSport.metrics.map(m => (
-                          <td key={m} className="py-3 px-4 text-sm text-slate-800">
+                          <td key={m} className="py-2 px-2 sm:py-3 sm:px-4 text-xs sm:text-sm text-slate-800">
                             {getStatValue(perf, m) || 0}
                           </td>
                         ))}
@@ -475,16 +475,16 @@ const Dashboard = () => {
               </div>
 
               {performances.length > 10 && (
-                <p className="text-center text-sm text-slate-500 mt-4">
+                <p className="text-center text-xs sm:text-sm text-slate-500 mt-3 sm:mt-4">
                   Showing 10 of {performances.length} records
                 </p>
               )}
             </>
           ) : (
-            <div className="text-center py-8 text-slate-500">
-              <Award size={48} className="mx-auto mb-2 text-slate-300" />
-              <p>No performance records found</p>
-              <p className="text-sm">Your performance data will appear here once recorded</p>
+            <div className="text-center py-6 sm:py-8 text-slate-500">
+              <Award size={36} className="mx-auto mb-1.5 sm:mb-2 text-slate-300 sm:size-12" />
+              <p className="text-sm sm:text-base">No performance records found</p>
+              <p className="text-xs sm:text-sm">Your performance data will appear here once recorded</p>
             </div>
           )}
         </Card>

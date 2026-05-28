@@ -226,32 +226,32 @@ const [formData, setFormData] = useState({
   }
 
   return (
-    <div className="p-6 space-y-6">
-      <div className="flex items-center gap-4">
+    <div className="p-4 sm:p-6 space-y-4 sm:space-y-6">
+      <div className="flex items-center gap-2 sm:gap-4">
         <Link to="/athletes">
-          <button className="p-2 hover:bg-slate-100 rounded-lg">
+          <button className="p-2 hover:bg-slate-100 rounded-lg touch-manipulation">
             <ArrowLeft size={20} />
           </button>
         </Link>
         <div>
-          <h1 className="text-2xl font-bold text-slate-800">
+          <h1 className="text-xl sm:text-2xl font-bold text-slate-800">
             Profile
           </h1>
         </div>
       </div>
 
-      <form onSubmit={handleSubmit} className="space-y-6">
+      <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
         <Card title="Personal Information">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 gap-3 sm:gap-4">
             {!isEdit && user?.role !== 'athlete' && (
-              <div className="md:col-span-2">
+              <div>
                 <label className="text-sm font-medium text-slate-700">User Account</label>
                 <select
                   name="userId"
                   value={formData.userId}
                   onChange={handleChange}
                   required
-                  className="mt-1 w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="mt-1 w-full px-3 py-2.5 sm:px-4 sm:py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-base"
                 >
                   <option value="">Select User Account</option>
                   {users.map(u => (
@@ -262,26 +262,28 @@ const [formData, setFormData] = useState({
                 </select>
               </div>
             )}
-            <Input
-              label="Date of Birth"
-              type="date"
-              name="dateOfBirth"
-              value={formData.dateOfBirth}
-              onChange={handleChange}
-            />
-            <div>
-              <label className="text-sm font-medium text-slate-700">Gender</label>
-              <select
-                name="gender"
-                value={formData.gender}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+              <Input
+                label="Date of Birth"
+                type="date"
+                name="dateOfBirth"
+                value={formData.dateOfBirth}
                 onChange={handleChange}
-                className="mt-1 w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-              >
-                <option value="">Select Gender</option>
-                <option value="male">Male</option>
-                <option value="female">Female</option>
-                <option value="other">Other</option>
-              </select>
+              />
+              <div>
+                <label className="text-sm font-medium text-slate-700">Gender</label>
+                <select
+                  name="gender"
+                  value={formData.gender}
+                  onChange={handleChange}
+                  className="mt-1 w-full px-3 py-2.5 sm:px-4 sm:py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-base"
+                >
+                  <option value="">Select Gender</option>
+                  <option value="male">Male</option>
+                  <option value="female">Female</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
             </div>
             <Input
               label="Street Address"
@@ -295,24 +297,26 @@ const [formData, setFormData] = useState({
               value={formData.address.city}
               onChange={(e) => handleNestedChange('address', 'city', e.target.value)}
             />
-            <Input
-              label="Emergency Contact Name"
-              name="emergencyName"
-              value={formData.emergencyContact.name}
-              onChange={(e) => handleNestedChange('emergencyContact', 'name', e.target.value)}
-            />
-            <Input
-              label="Emergency Contact Phone"
-              name="emergencyPhone"
-              value={formData.emergencyContact.phone}
-              onChange={(e) => handleNestedChange('emergencyContact', 'phone', e.target.value)}
-            />
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+              <Input
+                label="Emergency Contact Name"
+                name="emergencyName"
+                value={formData.emergencyContact.name}
+                onChange={(e) => handleNestedChange('emergencyContact', 'name', e.target.value)}
+              />
+              <Input
+                label="Emergency Contact Phone"
+                name="emergencyPhone"
+                value={formData.emergencyContact.phone}
+                onChange={(e) => handleNestedChange('emergencyContact', 'phone', e.target.value)}
+              />
+            </div>
           </div>
         </Card>
 
-        <Card title="Academic Information">
-          <div className="space-y-4">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+<Card title="Academic Information">
+          <div className="space-y-3 sm:space-y-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
               <Input
                 label="Student ID"
                 name="studentId"
@@ -337,7 +341,7 @@ const [formData, setFormData] = useState({
                   name="year"
                   value={formData.academic.year}
                   onChange={(e) => handleNestedChange('academic', 'year', parseInt(e.target.value))}
-                  className="mt-1 w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="mt-1 w-full px-3 py-2.5 sm:px-4 sm:py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-base"
                 >
                   <option value={1}>Year 1</option>
                   <option value={2}>Year 2</option>
@@ -363,9 +367,9 @@ const [formData, setFormData] = useState({
               />
             </div>
 
-            <div className="border-t border-slate-200 pt-4">
-              <h4 className="text-sm font-semibold text-slate-700 mb-3">Academic Adviser</h4>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="border-t border-slate-200 pt-3 sm:pt-4">
+              <h4 className="text-sm font-semibold text-slate-700 mb-2 sm:mb-3">Academic Adviser</h4>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                 <Input
                   label="Adviser Name"
                   name="adviserName"
@@ -401,14 +405,14 @@ const [formData, setFormData] = useState({
         </Card>
 
         <Card title="Sport Information">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
             <div>
               <label className="text-sm font-medium text-slate-700">Primary Sport</label>
               <select
                 name="primary"
                 value={formData.sport.primary}
                 onChange={(e) => handleNestedChange('sport', 'primary', e.target.value)}
-                className="mt-1 w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="mt-1 w-full px-3 py-2.5 sm:px-4 sm:py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-base"
               >
                 <option value="">Select Sport</option>
                 <option value="basketball">Basketball</option>
@@ -426,7 +430,7 @@ const [formData, setFormData] = useState({
                 name="position"
                 value={formData.sport.position}
                 onChange={(e) => handleNestedChange('sport', 'position', e.target.value)}
-                className="mt-1 w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="mt-1 w-full px-3 py-2.5 sm:px-4 sm:py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-base"
               >
                 <option value="">Select Position</option>
                 {formData.sport.primary && SPORT_POSITIONS[formData.sport.primary] ? (
@@ -439,10 +443,10 @@ const [formData, setFormData] = useState({
               </select>
             </div>
            </div>
-</Card>
+        </Card>
 
-         <Card title="Information">
-          <div className="space-y-4">
+        <Card title="Information">
+          <div className="space-y-3 sm:space-y-4">
             <div>
               <label className="text-sm font-medium text-slate-700">Bio</label>
               <textarea
@@ -451,7 +455,7 @@ const [formData, setFormData] = useState({
                 onChange={(e) => handleNestedChange('information', 'bio', e.target.value)}
                 placeholder="Enter a brief biography"
                 rows={3}
-                className="mt-1 w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="mt-1 w-full px-3 py-2.5 sm:px-4 sm:py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-base"
               />
             </div>
             <div>
@@ -462,7 +466,7 @@ const [formData, setFormData] = useState({
                 onChange={(e) => handleNestedChange('information', 'goals', e.target.value)}
                 placeholder="Enter athletic or academic goals"
                 rows={3}
-                className="mt-1 w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="mt-1 w-full px-3 py-2.5 sm:px-4 sm:py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-base"
               />
             </div>
             <div>
@@ -473,7 +477,7 @@ const [formData, setFormData] = useState({
                 onChange={(e) => handleNestedChange('information', 'achievements', e.target.value)}
                 placeholder="Enter notable achievements"
                 rows={3}
-                className="mt-1 w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="mt-1 w-full px-3 py-2.5 sm:px-4 sm:py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-base"
               />
             </div>
             <div>
@@ -484,14 +488,14 @@ const [formData, setFormData] = useState({
                 onChange={(e) => handleNestedChange('information', 'additionalNotes', e.target.value)}
                 placeholder="Enter any additional notes"
                 rows={3}
-                className="mt-1 w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="mt-1 w-full px-3 py-2.5 sm:px-4 sm:py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-base"
               />
             </div>
           </div>
         </Card>
 
-         <Card title="Physical Statistics">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <Card title="Physical Statistics">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
             <Input
               label="Height (cm)"
               type="number"
@@ -499,21 +503,21 @@ const [formData, setFormData] = useState({
               value={formData.physical.height}
               onChange={(e) => handleNestedChange('physical', 'height', parseFloat(e.target.value))}
             />
-             <Input
-               label="Weight (kg)"
-               type="number"
-               name="weight"
-               value={formData.physical.weight}
-               onChange={(e) => handleNestedChange('physical', 'weight', parseFloat(e.target.value))}
-             />
-           </div>
-         </Card>
+            <Input
+              label="Weight (kg)"
+              type="number"
+              name="weight"
+              value={formData.physical.weight}
+              onChange={(e) => handleNestedChange('physical', 'weight', parseFloat(e.target.value))}
+            />
+          </div>
+        </Card>
 
-        <div className="flex justify-end gap-4">
-          <Link to="/athletes">
-            <Button type="button" variant="outline">Cancel</Button>
+        <div className="flex flex-col sm:flex-row justify-end gap-3 sm:gap-4 sticky bottom-0 bg-white pt-3 pb-4 -mx-4 sm:mx-0 px-4 sm:px-0">
+          <Link to="/athletes" className="w-full sm:w-auto">
+            <Button type="button" variant="outline" className="w-full">Cancel</Button>
           </Link>
-          <Button type="submit" loading={loading} className="flex items-center gap-2">
+          <Button type="submit" loading={loading} className="w-full sm:w-auto flex items-center justify-center gap-2">
             <Save size={18} />
             {isEdit ? 'Update Profile' : 'Create Profile'}
           </Button>
