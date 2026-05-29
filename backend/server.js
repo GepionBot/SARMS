@@ -77,6 +77,13 @@ app.get("/api/health", (req, res) => {
   res.json({ status: "ok" });
 });
 
+
+app.get("/", (req, res) => {
+  res.json({
+    message: "SARMS Backend API Running"
+  });
+});
+
 const PORT = process.env.PORT || 3700;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
