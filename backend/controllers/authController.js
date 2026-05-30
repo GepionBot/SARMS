@@ -1,5 +1,6 @@
 const jwt = require("jsonwebtoken");
 const User = require("../model/users");
+const AthleteProfile = require("../model/athleteProfile");
 
 const generateToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
@@ -30,8 +31,138 @@ const register = async (req, res) => {
       role: role || "athlete",
       phone,
       verified: false,
-      isActive: false,
     });
+
+    // Create athlete profile if role is athlete and doesn't already exist
+    if (user.role === "athlete") {
+      const existingProfile = await AthleteProfile.findOne({ userId: user._id });
+      if (!existingProfile) {
+        await AthleteProfile.create({
+          userId: user._id,
+          academic: {
+            studentId: "",
+            major: "",
+            minor: "",
+            year: 1,
+            gpa: 0,
+            creditsCompleted: 0,
+            totalCredits: 120,
+            adviser: {
+              name: "",
+              email: "",
+              phone: "",
+              department: "",
+            },
+          },
+          physical: {
+            height: null,
+            weight: null,
+            bodyFat: null,
+            wingspan: null,
+            verticalJump: null,
+            lastUpdated: null,
+          },
+          medical: {
+            bloodType: "",
+            allergies: [],
+            medications: [],
+            injuries: [],
+            lastPhysicalExam: null,
+            physicalExamNotes: "",
+            doctorName: "",
+            doctorPhone: "",
+          },
+          sport: {
+            primary: "",
+            secondary: [],
+            position: "",
+            teamId: null,
+            sportCoordinatorId: null,
+          },
+          information: {
+            bio: "",
+            goals: "",
+            achievements: "",
+            additionalNotes: "",
+          },
+        });
+      }
+    }
+
+    const refreshToken = generateRefreshToken(user._id);
+    user.refreshToken = refreshToken;
+    await user.save();
+
+    res.cookie("refreshToken", refreshToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict",
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+    });
+
+    res.status(201).json({
+      _id: user._id,
+      email: user.email,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      role: user.role,
+      verified: user.verified,
+      token: generateToken(user._id),
+    });
+
+    // Create athlete profile if role is athlete
+    if (user.role === "athlete") {
+      await AthleteProfile.create({
+        userId: user._id,
+        // Initialize with empty/default values; can be updated later via profile form
+        academic: {
+          studentId: "",
+          major: "",
+          minor: "",
+          year: 1,
+          gpa: 0,
+          creditsCompleted: 0,
+          totalCredits: 120,
+          adviser: {
+            name: "",
+            email: "",
+            phone: "",
+            department: "",
+          },
+        },
+        physical: {
+          height: null,
+          weight: null,
+          bodyFat: null,
+          wingspan: null,
+          verticalJump: null,
+          lastUpdated: null,
+        },
+        medical: {
+          bloodType: "",
+          allergies: [],
+          medications: [],
+          injuries: [],
+          lastPhysicalExam: null,
+          physicalExamNotes: "",
+          doctorName: "",
+          doctorPhone: "",
+        },
+        sport: {
+          primary: "",
+          secondary: [],
+          position: "",
+          teamId: null,
+          sportCoordinatorId: null,
+        },
+        information: {
+          bio: "",
+          goals: "",
+          achievements: "",
+          additionalNotes: "",
+        },
+      });
+    }
 
     const refreshToken = generateRefreshToken(user._id);
     user.refreshToken = refreshToken;

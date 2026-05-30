@@ -8,9 +8,58 @@ const getSchedules = async (req, res) => {
 
     // If user is athlete, only show their schedules
     if (req.user.role === 'athlete') {
-      const athlete = await AthleteProfile.findOne({ userId: req.user._id });
+      let athlete = await AthleteProfile.findOne({ userId: req.user._id });
       if (!athlete) {
-        return res.status(404).json({ message: "Athlete profile not found" });
+        // Create default athlete profile if missing
+        athlete = await AthleteProfile.create({
+          userId: req.user._id,
+          academic: {
+            studentId: "",
+            major: "",
+            minor: "",
+            year: 1,
+            gpa: 0,
+            creditsCompleted: 0,
+            totalCredits: 120,
+            adviser: {
+              name: "",
+              email: "",
+              phone: "",
+              department: "",
+            },
+          },
+          physical: {
+            height: null,
+            weight: null,
+            bodyFat: null,
+            wingspan: null,
+            verticalJump: null,
+            lastUpdated: null,
+          },
+          medical: {
+            bloodType: "",
+            allergies: [],
+            medications: [],
+            injuries: [],
+            lastPhysicalExam: null,
+            physicalExamNotes: "",
+            doctorName: "",
+            doctorPhone: "",
+          },
+          sport: {
+            primary: "",
+            secondary: [],
+            position: "",
+            teamId: null,
+            sportCoordinatorId: null,
+          },
+          information: {
+            bio: "",
+            goals: "",
+            achievements: "",
+            additionalNotes: "",
+          },
+        });
       }
       query.athleteId = athlete._id;
     } else if (athleteId) {
@@ -62,9 +111,58 @@ const createSchedule = async (req, res) => {
 
     // If athlete is creating, use their own profile
     if (req.user.role === 'athlete') {
-      const athlete = await AthleteProfile.findOne({ userId: req.user._id });
+      let athlete = await AthleteProfile.findOne({ userId: req.user._id });
       if (!athlete) {
-        return res.status(404).json({ message: "Athlete profile not found" });
+        // Create default athlete profile if missing
+        athlete = await AthleteProfile.create({
+          userId: req.user._id,
+          academic: {
+            studentId: "",
+            major: "",
+            minor: "",
+            year: 1,
+            gpa: 0,
+            creditsCompleted: 0,
+            totalCredits: 120,
+            adviser: {
+              name: "",
+              email: "",
+              phone: "",
+              department: "",
+            },
+          },
+          physical: {
+            height: null,
+            weight: null,
+            bodyFat: null,
+            wingspan: null,
+            verticalJump: null,
+            lastUpdated: null,
+          },
+          medical: {
+            bloodType: "",
+            allergies: [],
+            medications: [],
+            injuries: [],
+            lastPhysicalExam: null,
+            physicalExamNotes: "",
+            doctorName: "",
+            doctorPhone: "",
+          },
+          sport: {
+            primary: "",
+            secondary: [],
+            position: "",
+            teamId: null,
+            sportCoordinatorId: null,
+          },
+          information: {
+            bio: "",
+            goals: "",
+            achievements: "",
+            additionalNotes: "",
+          },
+        });
       }
       athleteId = athlete._id;
       delete req.body.athleteId; // Remove any athleteId from body for athletes

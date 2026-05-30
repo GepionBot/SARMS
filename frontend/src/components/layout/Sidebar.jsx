@@ -23,7 +23,7 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
   const menuItems = [
     { icon: LayoutDashboard, label: 'Dashboard', path: '/dashboard', roles: ['coach', 'sport_coordinator', 'athlete'] },
     { icon: TrendingUp, label: 'Performance', path: '/performance', roles: ['coach', 'sport_coordinator', 'athlete'] },
-    { icon: CalendarDays, label: 'Schedule', path: '/schedule', roles: ['athlete'] },
+    { icon: CalendarDays, label: 'Schedule', path: '/schedule', roles: ['coach', 'sport_coordinator', 'athlete'] },
     { icon: Users, label: 'My Profile', path: '/my-profile', roles: ['athlete'] },
     { icon: Users, label: 'Athletes', path: '/athletes', roles: ['coach', 'sport_coordinator'] },
     { icon: Trophy, label: 'Teams', path: '/teams', roles: ['coach', 'sport_coordinator'] },

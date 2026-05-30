@@ -37,8 +37,8 @@ const EVENT_TYPES = [
 const AthleteSchedule = () => {
   const { user } = useAuth();
    
-  // Only athletes can access this page
-  if (user?.role !== 'athlete') {
+  // Athletes, coaches, and sport coordinators can access this page
+  if (!user || (user?.role !== 'athlete' && user?.role !== 'coach' && user?.role !== 'sport_coordinator')) {
     return <Navigate to="/dashboard" replace />;
   }
   
@@ -65,6 +65,9 @@ const AthleteSchedule = () => {
   useEffect(() => {
     fetchSchedules();
     fetchEvents();
+    if (user?.role !== 'athlete') {
+      fetchAthletes();
+    }
   }, []);
 
   const fetchAthletes = async () => {
@@ -98,7 +101,7 @@ const AthleteSchedule = () => {
     }
   };
 
-  const handleSubmit = async (e) => {
+   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       if (editingSchedule) {
@@ -112,7 +115,8 @@ const AthleteSchedule = () => {
       fetchSchedules();
     } catch (error) {
       console.error('Failed to save schedule:', error);
-      alert('Failed to save schedule');
+      const message = error.response?.data?.message || error.message || 'Failed to save schedule';
+      alert(message);
     }
   };
 
@@ -176,8 +180,12 @@ const AthleteSchedule = () => {
     <div className="p-6 space-y-6">
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-2xl font-bold text-slate-800">My Schedule</h1>
-            <p className="text-slate-500">Manage your school classes and activities</p>
+            <h1 className="text-2xl font-bold text-slate-800">
+              {user?.role === 'athlete' ? 'My Schedule' : 'Athlete Schedules'}
+            </h1>
+            <p className="text-slate-500">
+              {user?.role === 'athlete' ? 'Manage your school classes and activities' : 'Manage athlete schedules and activities'}
+            </p>
           </div>
           <Button className="flex items-center gap-2" onClick={() => { setShowModal(true); setEditingSchedule(null); resetForm(); }}>
             <Plus size={18} />
@@ -214,42 +222,47 @@ const AthleteSchedule = () => {
         <>
           {DAYS.map(day => (
             <Card key={day} title={DAY_LABELS[day]} subtitle={`${day.charAt(0).toUpperCase() + day.slice(1)} schedule`}>
-              {groupedSchedules[day].length === 0 ? (
-                <p className="text-slate-500 text-sm py-4">No schedules for {DAY_LABELS[day]}</p>
-              ) : (
-                <div className="space-y-3">
-                  {groupedSchedules[day].map(schedule => (
-                    <div key={schedule._id} className="p-4 border border-slate-200 rounded-lg hover:bg-slate-50 transition-colors relative" style={{ borderLeft: `4px solid ${schedule.color}` }}>
-                      <div className="flex items-start justify-between">
-                        <div className="flex-1">
-                          <div className="flex items-center gap-2 mb-1">
-                            <h4 className="font-semibold text-slate-800">{schedule.title}</h4>
-                            <span className="text-xs px-2 py-0.5 rounded-full text-white" style={{ backgroundColor: schedule.color }}>
-                              {SCHEDULE_TYPES.find(t => t.value === schedule.type)?.label || schedule.type}
-                            </span>
-                          </div>
-                          <div className="flex items-center gap-4 text-sm text-slate-600 mb-2">
-                            <span className="flex items-center gap-1">
-                              <Clock size={14} />
-                              {schedule.startTime} - {schedule.endTime}
-                            </span>
-                            {schedule.location && (
-                              <span className="flex items-center gap-1">
-                                <MapPin size={14} />
-                                {schedule.location}
-                              </span>
-                            )}
-                            {schedule.instructor && (
-                              <span className="flex items-center gap-1">
-                                <Users size={14} />
-                                {schedule.instructor}
-                              </span>
-                            )}
-                          </div>
-                          {schedule.notes && (
-                            <p className="text-sm text-slate-500 mt-2">{schedule.notes}</p>
-                          )}
-                        </div>
+                {groupedSchedules[day].length === 0 ? (
+                 <p className="text-slate-500 text-sm py-4">No schedules for {DAY_LABELS[day]}</p>
+               ) : (
+                 <div className="space-y-3">
+                   {groupedSchedules[day].map(schedule => (
+                     <div key={schedule._id} className="p-4 border border-slate-200 rounded-lg hover:bg-slate-50 transition-colors relative" style={{ borderLeft: `4px solid ${schedule.color}` }}>
+                       <div className="flex items-start justify-between">
+                         <div className="flex-1">
+                           {user?.role !== 'athlete' && schedule.athleteId?.userId && (
+                             <p className="text-xs font-medium text-blue-600 mb-1">
+                               {schedule.athleteId.userId.firstName} {schedule.athleteId.userId.lastName}
+                             </p>
+                           )}
+                           <div className="flex items-center gap-2 mb-1">
+                             <h4 className="font-semibold text-slate-800">{schedule.title}</h4>
+                             <span className="text-xs px-2 py-0.5 rounded-full text-white" style={{ backgroundColor: schedule.color }}>
+                               {SCHEDULE_TYPES.find(t => t.value === schedule.type)?.label || schedule.type}
+                             </span>
+                           </div>
+                           <div className="flex items-center gap-4 text-sm text-slate-600 mb-2">
+                             <span className="flex items-center gap-1">
+                               <Clock size={14} />
+                               {schedule.startTime} - {schedule.endTime}
+                             </span>
+                             {schedule.location && (
+                               <span className="flex items-center gap-1">
+                                 <MapPin size={14} />
+                                 {schedule.location}
+                               </span>
+                             )}
+                             {schedule.instructor && (
+                               <span className="flex items-center gap-1">
+                                 <Users size={14} />
+                                 {schedule.instructor}
+                               </span>
+                             )}
+                           </div>
+                           {schedule.notes && (
+                             <p className="text-sm text-slate-500 mt-2">{schedule.notes}</p>
+                           )}
+                         </div>
                          <div className="flex items-center gap-2">
                            <button onClick={() => handleEdit(schedule)} className="p-2 text-slate-600 hover:text-blue-600 hover:bg-blue-50 rounded-lg">
                              <Edit size={16} />
@@ -258,11 +271,11 @@ const AthleteSchedule = () => {
                              <Trash2 size={16} />
                            </button>
                          </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              )}
+                       </div>
+                     </div>
+                   ))}
+                 </div>
+               )}
             </Card>
           ))}
         </>
