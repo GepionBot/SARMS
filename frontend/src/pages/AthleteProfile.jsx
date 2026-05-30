@@ -356,7 +356,7 @@ const AthleteProfile = ({ isMyProfile = false }) => {
   };
 
   const canViewPerformance = ['coach', 'sport_coordinator', 'admin'].includes(user?.role);
-  const canViewSchedule = canViewPerformance || isMyProfile;
+  const canViewSchedule = isMyProfile;
 
   const groupedSchedules = DAYS.reduce((acc, day) => {
     acc[day] = athleteSchedules.filter(s => s.dayOfWeek === day);
